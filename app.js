@@ -11,6 +11,7 @@ app.use(morgan('dev'));
 //app.get(PATH, HANDLER);
 //HANDLER = (requestObject, responseObject)
 
+// Drill 1 Return sum of two numbers
 app.get('/sum', (req, res) => {
     const a = parseInt(req.query.a);
     const b = parseInt(req.query.b);
@@ -18,28 +19,29 @@ app.get('/sum', (req, res) => {
 
     if(!a) {
         return res.status(400).send('Please give a number for a.');
-      }
+    };
     
     if(!b) {
-    return res.status(400).send('Please give a number for b.');
-    }
+        return res.status(400).send('Please give a number for b.');
+    };
 
     const sumString = `The sum of ${a} and ${b} is ${c}.`;
     res.send(sumString);
 
 });
 
+// Drill 2 Cipher Encryption
 app.get('/cipher', (req, res) => {
     const text = req.query.text; // Hi
     const shift = parseInt(req.query.shift); //6
 
     if(!text) {
         return res.status(400).send('Please enter some text for text.');
-      }
+    };
     
-      if(!shift) {
+    if(!shift) {
         return res.status(400).send('Please give a number for shift.');
-      }
+    };
 
     let splitText = text.toUpperCase().split('');
     // console.log(splitText); //['H', 'I']
@@ -52,6 +54,7 @@ app.get('/cipher', (req, res) => {
     res.send(encrytedText);
 });
 
+//Drill 3 Lottery Numbers
 app.get('/lotto', (req, res) => {
     let numbers = req.query.arr;
     let lottoNumbers = [];
@@ -69,7 +72,7 @@ app.get('/lotto', (req, res) => {
     for(let i = 0; i < newNumbers.length; i++) {
         if(newNumbers[i] > 20) {
             return res.status(400).send('Please enter numbers between 1 and 20.');
-        }
+        };
         newNumbers;
     };
 
@@ -87,27 +90,28 @@ app.get('/lotto', (req, res) => {
             Sorry, you lose. 
             Your numbers: ${newNumbers}.
             Lotto numbers: ${lottoNumbers}
-        `)
+        `);
     } else if(result.length == 4) {
         return res.send(`
             Congratulations, you win a free ticket. 
             Your numbers: ${newNumbers}.
             Lotto numbers: ${lottoNumbers}
-        `)
+        `);
     } else if(result.length == 5) {
         return res.send(`
             Congratulations! You win $100!. 
             Your numbers: ${newNumbers}.
             Lotto numbers: ${lottoNumbers}
-        `)
+        `);
     } else if(result.length == 6) {
         return res.send(`
             Wow! Unbelievable! You could have won the mega millions!!. 
             Your numbers: ${newNumbers}.
             Lotto numbers: ${lottoNumbers}
-        `)
+        `);
     };
 });
+
 
 app.get('/', (req, res) => {
     res.send('Hello Express Pizza!');
